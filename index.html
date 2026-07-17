@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anshika Singh — Full Stack AI Engineer</title>
+<meta name="description" content="Computer Science engineer building software that works where the network doesn't. On-device ML, offline-first apps, and full-stack AI systems. Currently Full Stack AI Engineer at VakilDesk.">
+<meta name="author" content="Anshika Singh">
+<link rel="canonical" href="https://anshikasingh.dev/">
+
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Anshika Singh — Full Stack AI Engineer">
+<meta property="og:description" content="I build software that works where the network doesn't. On-device ML, offline-first apps, full-stack AI systems.">
+<meta property="og:url" content="https://anshikasingh.dev/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0B0D12">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "mainEntity": {
+    "@type": "Person",
+    "@id": "https://anshikasingh.dev/#anshika",
+    "name": "Anshika Singh",
+    "jobTitle": "Full Stack AI Engineer",
+    "email": "anshika91190@gmail.com",
+    "telephone": "+91-9119054508",
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "G.B. Pant Engineering College, DSEU Okhla-1 Campus, Delhi"
+    },
+    "knowsAbout": [
+      "On-device machine learning", "TensorFlow Lite", "Offline-first architecture",
+      "Full-stack development", "React", "Node.js", "Python", "Android development"
+    ],
+    "sameAs": []
+  }
+}
+</script>
+
+<style>
+:root{
+  --ground:#0A0C11; --raise-1:#101319; --raise-2:#151922; --raise-3:#1B2029;
+  --line:rgba(232,234,240,.08); --line-2:rgba(232,234,240,.15);
+  --ink:#EDEFF5; --ink-mute:#8B93A7; --ink-faint:#5A6274;
+  --accent:#6E7BF2; --accent-lo:#4A55B8; --cyan:#4CC9E8; --violet:#A56BF0;
+
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+
+  --e:cubic-bezier(0.2,0,0,1);
+  --e-out:cubic-bezier(0.05,0.7,0.1,1);
+  --t-quick:150ms; --t-std:200ms; --t-enter:300ms;
+
+  --gap:clamp(5.5rem,13vh,9rem);
+  --pad:clamp(1.25rem,4vw,2.5rem);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ground); color:var(--ink); font-family:var(--sans);
+  font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--accent); color:#fff}
+img{max-width:100%; display:block}
+
+/* ══════ AMBIENT ══════
+   Three blurred blooms drifting on transform only — compositor work, never
+   layout. Blur is baked into the gradient stops, so nothing animates a filter. */
+.aurora{position:fixed; inset:-30%; z-index:0; pointer-events:none; opacity:.9}
+.bloom{position:absolute; border-radius:50%; filter:blur(90px); will-change:transform}
+.bloom.a{
+  width:46vw; height:46vw; top:-6%; right:2%;
+  background:radial-gradient(circle,rgba(110,123,242,.42),transparent 66%);
+  animation:driftA 34s var(--e) infinite alternate;
+}
+.bloom.b{
+  width:38vw; height:38vw; top:14%; left:-4%;
+  background:radial-gradient(circle,rgba(76,201,232,.20),transparent 66%);
+  animation:driftB 41s var(--e) infinite alternate;
+}
+.bloom.c{
+  width:34vw; height:34vw; top:44%; left:38%;
+  background:radial-gradient(circle,rgba(165,107,240,.17),transparent 66%);
+  animation:driftC 47s var(--e) infinite alternate;
+}
+@keyframes driftA{to{transform:translate3d(-7vw,6vh,0) scale(1.12)}}
+@keyframes driftB{to{transform:translate3d(6vw,-5vh,0) scale(.9)}}
+@keyframes driftC{to{transform:translate3d(-5vw,-7vh,0) scale(1.15)}}
+
+.grain{
+  position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.wrap{position:relative; z-index:2; max-width:70rem; margin:0 auto; padding:0 var(--pad)}
+
+.skip{position:absolute; left:-999px; top:0; z-index:100; background:var(--accent); color:#fff; padding:.75rem 1.25rem; border-radius:0 0 6px 0; font-size:.85rem}
+.skip:focus{left:0}
+
+/* ══════ NAV ══════ */
+nav{position:fixed; top:0; left:0; right:0; z-index:50; border-bottom:1px solid transparent; transition:border-color var(--t-std) var(--e), background-color var(--t-std) var(--e)}
+nav.stuck{
+  background:rgba(10,12,17,.8);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  backdrop-filter:saturate(180%) blur(20px);
+  border-bottom-color:var(--line);
+}
+.nav-in{max-width:70rem; margin:0 auto; padding:1.05rem var(--pad); display:flex; align-items:center; justify-content:space-between; gap:1rem}
+.mark{font-family:var(--mono); font-size:.78rem; color:var(--ink); text-decoration:none; font-weight:500; white-space:nowrap}
+.mark span{color:var(--accent)}
+.nav-links{display:flex; gap:1.75rem; list-style:none; align-items:center}
+.nav-links a{font-family:var(--mono); font-size:.7rem; color:var(--ink-mute); text-decoration:none; text-transform:uppercase; letter-spacing:.1em; transition:color var(--t-quick) var(--e)}
+.nav-links a:hover,.nav-links a:focus-visible{color:var(--ink)}
+@media(max-width:46rem){.nav-links{display:none}}
+
+/* ══════ TYPE ══════ */
+h1{font-size:clamp(3rem,9vw,6.5rem); line-height:.95; letter-spacing:-.055em; font-weight:600; text-wrap:balance}
+h2{font-size:clamp(2rem,4.2vw,3.1rem); line-height:1.05; letter-spacing:-.04em; font-weight:600; text-wrap:balance}
+h3{font-size:1.2rem; letter-spacing:-.02em; font-weight:600}
+p{max-width:64ch}
+a{color:var(--accent)}
+.eyebrow{font-family:var(--mono); font-size:.68rem; text-transform:uppercase; letter-spacing:.18em; color:var(--ink-faint)}
+
+section{padding:var(--gap) 0; scroll-margin-top:4rem}
+
+/* Section head: number + rule + title. The rule fades out — a hairline that
+   dissolves rather than stopping dead. */
+.sec-head{margin-bottom:3rem}
+.sec-top{display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem}
+.sec-top .num{font-family:var(--mono); font-size:.68rem; color:var(--accent); letter-spacing:.14em; flex:0 0 auto}
+.sec-top .rule{height:1px; flex:1; background:linear-gradient(90deg,var(--line-2),transparent)}
+.sec-head .lede{color:var(--ink-mute); font-size:1.05rem; margin-top:1rem; max-width:56ch}
+
+/* ══════ HERO ══════ */
+.hero{min-height:min(96vh,56rem); display:flex; flex-direction:column; justify-content:center; padding-top:7rem; padding-bottom:3rem}
+.status{
+  display:inline-flex; align-items:center; gap:.55rem; align-self:flex-start;
+  font-family:var(--mono); font-size:.68rem; letter-spacing:.08em;
+  color:var(--ink-mute); background:rgba(16,19,25,.6); border:1px solid var(--line-2);
+  padding:.45rem .85rem; border-radius:100px; margin-bottom:2rem;
+}
+.status b{color:var(--ink); font-weight:500}
+.pulse{position:relative; width:6px; height:6px; border-radius:50%; background:var(--cyan); flex:0 0 auto}
+.pulse::after{content:""; position:absolute; inset:0; border-radius:50%; background:var(--cyan); animation:pulse 2.4s var(--e-out) infinite}
+@keyframes pulse{0%{transform:scale(1);opacity:.7} 70%,100%{transform:scale(3.6);opacity:0}}
+
+h1 .line{display:block; overflow:hidden; padding-bottom:.04em}
+h1 .line > span{display:block}
+h1 em{
+  font-style:normal;
+  background:linear-gradient(105deg,var(--cyan),var(--accent) 45%,var(--violet));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hero-sub{margin-top:2rem; font-size:clamp(1.02rem,1.5vw,1.18rem); color:var(--ink-mute); max-width:50ch}
+.hero-sub strong{color:var(--ink); font-weight:500}
+.cta-row{display:flex; gap:.75rem; margin-top:2.5rem; flex-wrap:wrap}
+.btn{
+  display:inline-flex; align-items:center; gap:.5rem; font-family:var(--mono);
+  font-size:.74rem; letter-spacing:.06em; text-transform:uppercase; text-decoration:none;
+  padding:.9rem 1.5rem; border-radius:7px; border:1px solid var(--line-2);
+  color:var(--ink); background:rgba(21,25,34,.7);
+  transition:transform var(--t-quick) var(--e), background-color var(--t-quick) var(--e), border-color var(--t-quick) var(--e);
+  will-change:transform;
+}
+.btn:hover,.btn:focus-visible{background:var(--raise-3); border-color:var(--ink-faint)}
+.btn.primary{background:var(--accent); border-color:var(--accent); color:#fff; box-shadow:0 6px 28px -8px rgba(110,123,242,.7)}
+.btn.primary:hover,.btn.primary:focus-visible{background:#7f8bf5; border-color:#7f8bf5}
+.arw{transition:transform var(--t-quick) var(--e)}
+.btn:hover .arw{transform:translateX(3px)}
+
+/* ══════ STATS ══════ */
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(8rem,1fr)); gap:2.5rem 1rem; margin-top:4.5rem; padding-top:2.5rem; border-top:1px solid var(--line)}
+.stat .n{font-family:var(--mono); font-size:clamp(2.1rem,4vw,2.9rem); font-weight:600; letter-spacing:-.05em; font-variant-numeric:tabular-nums; display:block; line-height:1; color:var(--ink)}
+.stat .n i{font-style:normal; color:var(--accent)}
+.stat .l{font-family:var(--mono); font-size:.63rem; text-transform:uppercase; letter-spacing:.13em; color:var(--ink-faint); margin-top:.6rem; display:block; line-height:1.4}
+
+/* ══════ SPOTLIGHT CARD ══════
+   A radial glow tracks the pointer. --mx/--my are written by JS on a rAF;
+   the gradient itself is pure CSS, so nothing here reflows. */
+.spot{position:relative; isolation:isolate; overflow:hidden}
+.spot::before{
+  content:""; position:absolute; inset:0; z-index:-1; opacity:0;
+  background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%), rgba(110,123,242,.14), transparent 42%);
+  transition:opacity var(--t-enter) var(--e);
+}
+.spot:hover::before{opacity:1}
+/* Hairline that brightens toward the cursor — the detail that reads as craft. */
+.spot::after{
+  content:""; position:absolute; inset:0; z-index:-1; border-radius:inherit; padding:1px;
+  background:radial-gradient(280px circle at var(--mx,50%) var(--my,50%), rgba(140,150,255,.55), transparent 40%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor; mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite:exclude;
+  opacity:0; transition:opacity var(--t-enter) var(--e);
+}
+.spot:hover::after{opacity:1}
+
+/* ══════ STORY ══════ */
+.prose p{margin-bottom:1.2rem; color:var(--ink-mute); font-size:1.05rem}
+.prose p:last-child{margin-bottom:0}
+.prose strong{color:var(--ink); font-weight:500}
+.prose .big{font-size:clamp(1.25rem,2.2vw,1.5rem); color:var(--ink); letter-spacing:-.025em; line-height:1.45; max-width:34ch; margin-bottom:2rem}
+.story-grid{display:grid; grid-template-columns:1fr 1fr; gap:3rem}
+@media(max-width:48rem){.story-grid{grid-template-columns:1fr; gap:1.5rem}}
+
+/* ══════ WORK ══════ */
+.work-list{display:flex; flex-direction:column; gap:1.25rem}
+.proj{
+  background:rgba(16,19,25,.66); border:1px solid var(--line); border-radius:16px;
+  padding:1.9rem; display:grid; grid-template-columns:1fr 15rem; gap:2rem;
+  transition:border-color var(--t-std) var(--e), transform var(--t-std) var(--e);
+}
+.proj:hover{border-color:var(--line-2); transform:translateY(-3px)}
+.proj-top{display:flex; align-items:center; gap:.85rem; margin-bottom:.9rem}
+.proj-top .idx{font-family:var(--mono); font-size:.68rem; color:var(--ink-faint); font-variant-numeric:tabular-nums}
+.tag{font-family:var(--mono); font-size:.58rem; text-transform:uppercase; letter-spacing:.11em; padding:.28em .6em; border-radius:100px; white-space:nowrap; border:1px solid currentColor}
+.tag.sig{color:var(--cyan); background:rgba(76,201,232,.07)}
+.proj h3{font-size:1.5rem; letter-spacing:-.03em; margin-bottom:.6rem}
+.proj .desc{color:var(--ink-mute); font-size:.96rem; margin-bottom:1.3rem; max-width:52ch}
+.proj .desc em{color:var(--ink); font-style:normal; font-weight:500}
+.stack{display:flex; flex-wrap:wrap; gap:.35rem}
+.chip{font-family:var(--mono); font-size:.63rem; color:var(--ink-faint); border:1px solid var(--line); border-radius:5px; padding:.25em .55em; background:rgba(10,12,17,.5); transition:color var(--t-quick) var(--e), border-color var(--t-quick) var(--e)}
+.proj:hover .chip{color:var(--ink-mute); border-color:var(--line-2)}
+
+/* Project visual slot. Reads as an intentional panel until Anshika drops a
+   real screenshot in — never as a broken image. */
+.shot{
+  position:relative; border-radius:10px; overflow:hidden; min-height:9.5rem;
+  background:
+    linear-gradient(145deg,rgba(110,123,242,.12),rgba(76,201,232,.05)),
+    var(--raise-2);
+  border:1px solid var(--line);
+  display:flex; align-items:center; justify-content:center;
+}
+.shot img{width:100%; height:100%; object-fit:cover}
+.shot .ph{font-family:var(--mono); font-size:.6rem; color:var(--ink-faint); text-align:center; letter-spacing:.1em; text-transform:uppercase; padding:1rem}
+@media(max-width:52rem){
+  .proj{grid-template-columns:1fr; padding:1.5rem; gap:1.4rem}
+  .shot{min-height:11rem; order:-1}
+}
+
+/* ══════ EXPERIENCE ══════ */
+.xp{list-style:none}
+.xp-item{display:grid; grid-template-columns:10.5rem 1fr; gap:1.75rem; padding:1.9rem 1.25rem; border-radius:12px; border:1px solid transparent; transition:border-color var(--t-std) var(--e), background-color var(--t-std) var(--e)}
+.xp-item:hover{background:rgba(16,19,25,.55); border-color:var(--line)}
+.xp-when{font-family:var(--mono); font-size:.68rem; color:var(--ink-faint); line-height:1.6; padding-top:.3rem}
+.xp-when .now{color:var(--cyan); display:inline-flex; align-items:center; gap:.4rem}
+.xp-role h3{letter-spacing:-.02em; margin-bottom:.2rem}
+.xp-org{font-family:var(--mono); font-size:.72rem; color:var(--accent); margin-bottom:.8rem}
+.xp-body{color:var(--ink-mute); font-size:.92rem; max-width:56ch}
+.xp-body li{margin-left:1.1rem; margin-bottom:.35rem}
+.xp-body li::marker{color:var(--accent-lo)}
+@media(max-width:46rem){.xp-item{grid-template-columns:1fr; gap:.6rem; padding:1.5rem 0}.xp-item:hover{background:none;border-color:transparent}.xp-when{padding-top:0}}
+
+/* ══════ CRAFT ══════ */
+.craft{display:grid; grid-template-columns:repeat(auto-fit,minmax(13rem,1fr)); gap:1rem}
+.craft-grp{background:rgba(16,19,25,.6); border:1px solid var(--line); border-radius:14px; padding:1.4rem}
+.craft-grp h3{font-family:var(--mono); font-size:.63rem; text-transform:uppercase; letter-spacing:.14em; color:var(--accent); font-weight:400; margin-bottom:1rem}
+.craft-grp ul{list-style:none; display:flex; flex-wrap:wrap; gap:.4rem}
+.craft-grp li{font-size:.8rem; color:var(--ink-mute); border:1px solid var(--line); border-radius:5px; padding:.3em .6em; transition:color var(--t-quick) var(--e), border-color var(--t-quick) var(--e), background-color var(--t-quick) var(--e)}
+.craft-grp li:hover{color:var(--ink); border-color:var(--accent-lo); background:rgba(110,123,242,.08)}
+
+/* ══════ BEYOND ══════ */
+.beyond{background:rgba(16,19,25,.6); border:1px solid var(--line); border-radius:14px; padding:1.75rem}
+.beyond .role{display:flex; align-items:baseline; gap:.75rem; flex-wrap:wrap; margin-bottom:.25rem}
+
+/* ══════ CONTACT ══════ */
+.contact{padding-bottom:calc(var(--gap)*.6)}
+.contact h2{font-size:clamp(2.4rem,6vw,4.2rem); letter-spacing:-.05em; line-height:1.02; margin-bottom:1.5rem}
+.contact p{font-size:1.08rem; color:var(--ink-mute); margin-bottom:2rem}
+.mailto{font-family:var(--mono); font-size:clamp(.9rem,2.6vw,1.15rem); color:var(--ink); text-decoration:none; border-bottom:1px solid var(--accent-lo); padding-bottom:.2rem; transition:color var(--t-quick) var(--e), border-color var(--t-quick) var(--e); word-break:break-all}
+.mailto:hover{color:var(--accent); border-bottom-color:var(--accent)}
+.links{display:flex; gap:.75rem; flex-wrap:wrap}
+
+footer{border-top:1px solid var(--line); padding:2rem 0 3rem; display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-family:var(--mono); font-size:.66rem; color:var(--ink-faint)}
+
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:3px}
+
+/* Reveals are applied by JS only, so no-JS and reduced-motion never see them. */
+.r{opacity:0; transform:translateY(14px)}
+.r.in{opacity:1; transform:none; transition:opacity var(--t-enter) var(--e-out), transform var(--t-enter) var(--e-out)}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; scroll-behavior:auto!important}
+  .r{opacity:1!important; transform:none!important}
+  .bloom{animation:none!important}
+  .pulse::after{animation:none!important; opacity:0!important}
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="aurora" aria-hidden="true">
+  <div class="bloom a"></div>
+  <div class="bloom b"></div>
+  <div class="bloom c"></div>
+</div>
+<div class="grain" aria-hidden="true"></div>
+
+<nav id="nav">
+  <div class="nav-in">
+    <a class="mark" href="#top">anshika singh<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#craft">Craft</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main">
+<div class="wrap" id="top">
+
+  <!-- ═══ HERO ═══ -->
+  <header class="hero">
+    <span class="status" data-h="0">
+      <span class="pulse"></span> Currently <b>Full Stack AI Engineer</b> at VakilDesk
+    </span>
+    <h1>
+      <span class="line" data-h="1"><span>I build software</span></span>
+      <span class="line" data-h="2"><span>that works where</span></span>
+      <span class="line" data-h="3"><span><em>the network doesn't.</em></span></span>
+    </h1>
+    <p class="hero-sub" data-h="4">
+      Computer Science engineer, final year in Delhi. On-device inference,
+      offline-first architecture, and full-stack AI — previously
+      <strong>Samsung R&amp;D</strong> and <strong>CSIR–NPL</strong>.
+    </p>
+    <div class="cta-row" data-h="5">
+      <a class="btn primary" href="#work">See the work <span class="arw">→</span></a>
+      <a class="btn" href="mailto:anshika91190@gmail.com">Get in touch</a>
+    </div>
+
+    <div class="stats" data-h="6">
+      <div class="stat"><span class="n">5</span><span class="l">Internships</span></div>
+      <div class="stat"><span class="n">3</span><span class="l">Offline-first builds</span></div>
+      <div class="stat"><span class="n">8.2<i>/10</i></span><span class="l">CGPA · B.Tech CSE</span></div>
+      <div class="stat"><span class="n">'26</span><span class="l">Graduating</span></div>
+    </div>
+  </header>
+
+  <!-- ═══ STORY ═══ -->
+  <section id="story">
+    <div class="sec-head r">
+      <div class="sec-top"><span class="num">01 / STORY</span><span class="rule"></span></div>
+      <h2>Most software assumes a connection.<br>Mine doesn't.</h2>
+    </div>
+    <div class="story-grid r">
+      <div class="prose">
+        <p class="big">
+          I didn't set out to specialise in this. I noticed it looking backwards —
+          three projects in a row where the hard part wasn't the feature, it was
+          what happens when the signal drops.
+        </p>
+      </div>
+      <div class="prose">
+        <p>
+          A heritage app for monasteries in <strong>Sikkim</strong>, where the
+          mountains take your bars away and the tour has to keep running.
+          A sign-language recogniser that can't send frames to a server, because
+          a conversation doesn't wait for a round trip — so the model runs
+          <strong>on the phone</strong>. A study planner that keeps working on a
+          train. Different problems, same constraint.
+        </p>
+        <p>
+          That constraint is a good teacher. It takes away the easy answer.
+          You can't call an API, so you learn what the model actually costs.
+          You can't lazy-load, so you learn what the app actually needs. You stop
+          designing for the demo and start designing for the worst day.
+        </p>
+        <p>
+          My CGPA went from <strong>7.29 to 8.2</strong> across my degree. I mention
+          it because it's the honest shape of how I learn — slowly at first, then
+          properly, once I understand why something matters.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WORK ═══ -->
+  <section id="work">
+    <div class="sec-head r">
+      <div class="sec-top"><span class="num">02 / WORK</span><span class="rule"></span></div>
+      <h2>Three things I built.</h2>
+      <p class="lede">Each one had a constraint that made the obvious solution impossible. That's the part worth talking about.</p>
+    </div>
+
+    <div class="work-list">
+
+      <article class="proj spot r">
+        <div>
+          <div class="proj-top">
+            <span class="idx">01</span>
+            <span class="tag sig">Offline-first</span>
+          </div>
+          <h3>MonkBuddy</h3>
+          <p class="desc">
+            A heritage guide for Sikkim's monasteries — 360° virtual tours,
+            interactive maps, and multi-language audio guides.
+            <em>The constraint that shaped everything: it has to work in the
+            mountains, where connectivity doesn't.</em> Built to run in
+            low-signal regions and in local languages, so the people the
+            monasteries belong to can actually use it.
+          </p>
+          <div class="stack">
+            <span class="chip">React</span><span class="chip">Flutter</span>
+            <span class="chip">Node.js</span><span class="chip">Django</span>
+            <span class="chip">MongoDB</span><span class="chip">PostgreSQL</span>
+            <span class="chip">TensorFlow</span><span class="chip">Three.js</span>
+            <span class="chip">Unity</span><span class="chip">Kotlin</span>
+          </div>
+        </div>
+        <!-- TODO Anshika: <img src="shots/monkbuddy.png" alt="MonkBuddy 360° tour"> -->
+        <div class="shot"><span class="ph">Screenshot<br>monkbuddy</span></div>
+      </article>
+
+      <article class="proj spot r">
+        <div>
+          <div class="proj-top">
+            <span class="idx">02</span>
+            <span class="tag sig">On-device ML</span>
+          </div>
+          <h3>HintCatcher</h3>
+          <p class="desc">
+            Real-time sign language detection on Android. Camera in,
+            recognised gesture out — <em>with the model running entirely on the
+            device.</em> That's not a preference, it's the requirement: a
+            conversation can't pause for a server round trip, and the people who
+            need this most are not guaranteed a good connection.
+          </p>
+          <div class="stack">
+            <span class="chip">Kotlin</span><span class="chip">CameraX</span>
+            <span class="chip">TensorFlow Lite</span><span class="chip">Android Studio</span>
+          </div>
+        </div>
+        <!-- TODO Anshika: <img src="shots/hintcatcher.png" alt="HintCatcher detecting a gesture"> -->
+        <div class="shot"><span class="ph">Screenshot<br>hintcatcher</span></div>
+      </article>
+
+      <article class="proj spot r">
+        <div>
+          <div class="proj-top">
+            <span class="idx">03</span>
+          </div>
+          <h3>Talkie</h3>
+          <p class="desc">
+            A real-time messenger — live chat, delivery states, notifications.
+            Socket.io for the transport, <em>Prisma over MariaDB for durable
+            message storage</em>, because a chat app that loses messages is not
+            a chat app. The interesting part wasn't the sockets; it was making
+            delivery honest when the connection isn't.
+          </p>
+          <div class="stack">
+            <span class="chip">React</span><span class="chip">Vite</span>
+            <span class="chip">Node.js</span><span class="chip">Express</span>
+            <span class="chip">Socket.io</span><span class="chip">Prisma</span>
+            <span class="chip">MariaDB</span><span class="chip">TypeScript</span>
+          </div>
+        </div>
+        <!-- TODO Anshika: <img src="shots/talkie.png" alt="Talkie chat interface"> -->
+        <div class="shot"><span class="ph">Screenshot<br>talkie</span></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ═══ EXPERIENCE ═══ -->
+  <section id="experience">
+    <div class="sec-head r">
+      <div class="sec-top"><span class="num">03 / EXPERIENCE</span><span class="rule"></span></div>
+      <h2>Five internships.<br>Two of them at once.</h2>
+    </div>
+
+    <ol class="xp">
+
+      <li class="xp-item spot r">
+        <div class="xp-when"><span class="now"><span class="pulse"></span>Dec 2025 — Present</span><br>Delhi</div>
+        <div class="xp-role">
+          <h3>Full Stack AI Engineer</h3>
+          <div class="xp-org">VakilDesk · Nuvena</div>
+          <div class="xp-body">
+            <p>Building legal-tech AI end to end — frontend through model integration.</p>
+            <!-- TODO Anshika: 2–3 concrete lines. What did you ship? What broke?
+                 Name the hardest technical decision and what it cost you. -->
+          </div>
+        </div>
+      </li>
+
+      <li class="xp-item spot r">
+        <div class="xp-when">Aug — Sep 2025<br>Remote</div>
+        <div class="xp-role">
+          <h3>Frontend Web Developer Intern</h3>
+          <div class="xp-org">Edunet Foundation</div>
+          <div class="xp-body">
+            <ul>
+              <li>Built a Study Planner for organising schedules and tracking academic tasks — goals, reminders, visual timelines.</li>
+              <li>Stored tasks and progress locally, so the app keeps working without a connection.</li>
+            </ul>
+          </div>
+        </div>
+      </li>
+
+      <li class="xp-item spot r">
+        <div class="xp-when">Jul — Sep 2025<br>On-site</div>
+        <div class="xp-role">
+          <h3>AI / ML Developer Intern</h3>
+          <div class="xp-org">Samsung India Electronics</div>
+          <div class="xp-body">
+            <ul>
+              <li>Contributed to a cloud-native microservices architecture for an AI-driven supply chain platform, on AWS and Kubernetes.</li>
+              <li>Worked within the team on data and ML pipelines for predictive demand forecasting — PostgreSQL, MongoDB, Kafka.</li>
+              <li>Worked on inventory and transportation optimisation: multi-echelon stock planning, dynamic reorder points, and vehicle routing under real-time constraints.</li>
+            </ul>
+          </div>
+        </div>
+      </li>
+
+      <li class="xp-item spot r">
+        <div class="xp-when">Jun — Jul 2025<br>New Delhi</div>
+        <div class="xp-role">
+          <h3>Web Developer Intern</h3>
+          <div class="xp-org">CSIR — National Physical Laboratory</div>
+          <div class="xp-body">
+            <ul>
+              <li>Built and deployed a form-based web application to streamline data collection at a national research lab.</li>
+              <li>Backend integration for storing and retrieving submissions; worked on validation, authentication, and usability.</li>
+            </ul>
+          </div>
+        </div>
+      </li>
+
+      <li class="xp-item spot r">
+        <div class="xp-when">Sep — Nov 2022<br>Remote</div>
+        <div class="xp-role">
+          <h3>Content Writing Intern</h3>
+          <div class="xp-org">Notinline</div>
+          <div class="xp-body">
+            <p>Wrote long-form content and learned to research, edit, and structure an argument. First internship, first year — and the writing turned out to matter more than I expected.</p>
+          </div>
+        </div>
+      </li>
+
+    </ol>
+  </section>
+
+  <!-- ═══ CRAFT ═══ -->
+  <section id="craft">
+    <div class="sec-head r">
+      <div class="sec-top"><span class="num">04 / CRAFT</span><span class="rule"></span></div>
+      <h2>What I actually reach for.</h2>
+    </div>
+    <div class="craft">
+      <div class="craft-grp spot r"><h3>Languages</h3><ul><li>Python</li><li>C / C++</li><li>JavaScript</li><li>TypeScript</li><li>Kotlin</li><li>HTML / CSS</li></ul></div>
+      <div class="craft-grp spot r"><h3>Frontend</h3><ul><li>React</li><li>React Native</li><li>Vite</li><li>Flutter</li></ul></div>
+      <div class="craft-grp spot r"><h3>Backend</h3><ul><li>Node.js</li><li>Express</li><li>Django</li><li>Prisma</li><li>Socket.io</li></ul></div>
+      <div class="craft-grp spot r"><h3>AI / ML</h3><ul><li>TensorFlow</li><li>TensorFlow Lite</li><li>PyTorch</li><li>Python libraries</li></ul></div>
+      <div class="craft-grp spot r"><h3>Data</h3><ul><li>PostgreSQL</li><li>MongoDB</li><li>MySQL</li><li>MariaDB</li><li>Firebase</li><li>Kafka</li></ul></div>
+      <div class="craft-grp spot r"><h3>Tools</h3><ul><li>Git</li><li>Android Studio</li><li>VS Code</li><li>Jira</li><li>AWS</li><li>Kubernetes</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ═══ BEYOND ═══ -->
+  <section id="beyond">
+    <div class="sec-head r">
+      <div class="sec-top"><span class="num">05 / BEYOND</span><span class="rule"></span></div>
+      <h2>Education &amp; leadership.</h2>
+    </div>
+    <div class="craft" style="grid-template-columns:repeat(auto-fit,minmax(17rem,1fr))">
+      <div class="beyond spot r">
+        <div class="role"><h3>B.Tech, Computer Science</h3></div>
+        <div class="xp-org">2022 — 2026 · CGPA 8.2</div>
+        <p class="xp-body">G.B. Pant Engineering College, DSEU Okhla-1 Campus, Delhi. Coursework in data structures &amp; algorithms, operating systems, computer networks, DBMS, OOP, and AI/ML.</p>
+      </div>
+      <div class="beyond spot r">
+        <div class="role"><h3>President, Buniyaad</h3><span class="tag" style="color:var(--ink-faint)">Jul 2025 —</span></div>
+        <div class="xp-org">Theatre Society, G.B. Pant DSEU</div>
+        <p class="xp-body">I lead a team of actors, writers, and coordinators — stage plays, street plays, and cultural performances, run end to end from auditions to opening night. Directing taught me things engineering didn't: how to hold an audience, and that a deadline with a live audience behind it does not move.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CONTACT ═══ -->
+  <section id="contact" class="contact">
+    <div class="r">
+      <div class="sec-top"><span class="num">06 / CONTACT</span><span class="rule"></span></div>
+      <h2>I'm graduating in 2026, and I'd like to build <em style="font-style:normal;background:linear-gradient(105deg,var(--cyan),var(--accent) 50%,var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent">something that matters</em>.</h2>
+      <p>
+        If you're working on something where the constraints are real —
+        bad networks, small devices, people who get left out by software that
+        assumes too much — I'd genuinely like to hear about it.
+      </p>
+      <p style="margin-bottom:2.5rem">
+        <a class="mailto" href="mailto:anshika91190@gmail.com">anshika91190@gmail.com</a>
+      </p>
+      <div class="links">
+        <a class="btn primary" href="mailto:anshika91190@gmail.com">Email me <span class="arw">→</span></a>
+        <!-- TODO Anshika: paste your real GitHub + LinkedIn URLs here -->
+        <a class="btn" href="#" rel="noopener">GitHub</a>
+        <a class="btn" href="#" rel="noopener">LinkedIn</a>
+        <a class="btn" href="#">Résumé</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Anshika Singh</span>
+    <span>Delhi, India · +91 91190 54508</span>
+  </footer>
+
+</div>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* nav frost */
+  var nav = document.getElementById('nav'), ticking = false;
+  function onScroll(){
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      nav.classList.toggle('stuck', scrollY > 24);
+      ticking = false;
+    });
+  }
+  addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  if (reduced.matches) return;
+
+  /* hero entrance — animates FROM the final state, so it can never strand */
+  document.querySelectorAll('[data-h]').forEach(function(el){
+    var i = +el.dataset.h, isLine = el.classList.contains('line');
+    var inner = isLine ? el.firstElementChild : el;
+    inner.style.transform = 'translateY(' + (isLine ? '105%' : '10px') + ')';
+    if (!isLine) inner.style.opacity = '0';
+    requestAnimationFrame(function(){
+      var d = i * 65 + 80;
+      inner.style.transition =
+        'transform 640ms cubic-bezier(0.05,0.7,0.1,1) ' + d + 'ms, opacity 520ms cubic-bezier(0.05,0.7,0.1,1) ' + d + 'ms';
+      inner.style.transform = 'none';
+      inner.style.opacity = '1';
+    });
+  });
+
+  /* scroll reveals */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      });
+    }, {rootMargin:'0px 0px -12% 0px', threshold:.1});
+    document.querySelectorAll('.r').forEach(function(el, i){
+      el.style.transitionDelay = (i % 4) * 50 + 'ms';
+      io.observe(el);
+    });
+  }
+
+  /* pointer-driven effects: fine pointers only.
+     Keyboard users get zero magnetism and a full focus ring. */
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+  /* spotlight — one listener on the document, coords written per-card on a rAF */
+  var spots = [].slice.call(document.querySelectorAll('.spot'));
+  var pending = false, lastEv = null;
+  addEventListener('pointermove', function(ev){
+    lastEv = ev;
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(function(){
+      spots.forEach(function(card){
+        var r = card.getBoundingClientRect();
+        if (lastEv.clientX < r.left - 60 || lastEv.clientX > r.right + 60 ||
+            lastEv.clientY < r.top - 60 || lastEv.clientY > r.bottom + 60) return;
+        card.style.setProperty('--mx', (lastEv.clientX - r.left) + 'px');
+        card.style.setProperty('--my', (lastEv.clientY - r.top) + 'px');
+      });
+      pending = false;
+    });
+  }, {passive:true});
+
+  /* magnetic buttons */
+  document.querySelectorAll('.btn').forEach(function(btn){
+    var raf = null;
+    btn.addEventListener('pointermove', function(ev){
+      if (raf) return;
+      raf = requestAnimationFrame(function(){
+        var r = btn.getBoundingClientRect();
+        btn.style.transform = 'translate(' +
+          (ev.clientX - r.left - r.width/2) * .18 + 'px,' +
+          (ev.clientY - r.top - r.height/2) * .28 + 'px)';
+        raf = null;
+      });
+    });
+    btn.addEventListener('pointerleave', function(){ btn.style.transform = ''; });
+  });
+})();
+</script>
+</body>
+</html>
