@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0A0C11">
 
-<script>/* set theme before first paint to avoid a flash */(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
+<script>/* default to dark; honour a saved choice */(function(){try{var t=localStorage.getItem('theme');document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
 
 <script type="application/ld+json">
 {
@@ -84,21 +84,6 @@
   --grad-conic:conic-gradient(from 210deg,#0FB5D6,#5560E6,#9541D8,#D63C9E,#0FB5D6);
   --shadow:0 12px 30px -14px rgba(70,80,160,.45);
   color-scheme:light;
-}
-/* no-JS fallback: honour OS light preference when no explicit theme is set */
-@media (prefers-color-scheme: light){
-  :root:not([data-theme]){
-    --ground:#F4F6FC; --raise-1:#FFFFFF; --raise-2:#EDEFF7; --raise-3:#E1E5F1;
-    --line:rgba(20,24,45,.10); --line-2:rgba(20,24,45,.17);
-    --ink:#151824; --ink-mute:#525A70; --ink-faint:#878EA3;
-    --accent:#5560E6; --accent-lo:#9aa0ec; --cyan:#0E9CC4; --violet:#9541D8;
-    --card:rgba(255,255,255,.72); --card-hover:rgba(255,255,255,.96);
-    --input-bg:rgba(255,255,255,.88); --btn-bg:rgba(255,255,255,.7);
-    --chip-bg:rgba(255,255,255,.6); --nav-bg:rgba(244,246,252,.82);
-    --grad:linear-gradient(115deg,#0FB5D6,#5560E6 40%,#9541D8 70%,#D63C9E);
-    --grad-conic:conic-gradient(from 210deg,#0FB5D6,#5560E6,#9541D8,#D63C9E,#0FB5D6);
-    --shadow:0 12px 30px -14px rgba(70,80,160,.45); color-scheme:light;
-  }
 }
 :root[data-theme="light"] .aurora{opacity:.5}
 :root[data-theme="light"] .grain{opacity:.02}
