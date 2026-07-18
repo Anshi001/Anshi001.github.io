@@ -692,7 +692,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-of
     <div class="contact-grid r">
       <!-- Native POST to FormSubmit.co → arrives at anshika91190@gmail.com.
            Works locally and when deployed; no backend, no API key. -->
-      <form class="form" action="https://formsubmit.co/anshika91190@gmail.com" method="POST">
+      <form class="form" id="contact-form" action="https://formsubmit.co/anshika91190@gmail.com" method="POST">
         <input type="hidden" name="_subject" value="New message from your portfolio">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_captcha" value="false">
@@ -708,6 +708,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-of
         <div>
           <button class="btn primary" type="submit">Send message <span class="arw">→</span></button>
         </div>
+        <p class="form-msg" id="form-msg" role="status" aria-live="polite"></p>
       </form>
 
       <aside class="aside">
@@ -764,6 +765,44 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-of
     root.setAttribute('data-theme', next);
     try { localStorage.setItem('theme', next); } catch (e) {}
   });
+
+  /* ---- contact form ----
+     On a hosted site: send in the background so the visitor stays on the page
+     and sees a success note. If that's blocked (e.g. opened as a local file),
+     let the form submit normally to FormSubmit — never a mailto popup. */
+  var form = document.getElementById('contact-form');
+  var out = document.getElementById('form-msg');
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (out) { out.style.color = ''; out.textContent = 'Sending…'; }
+      var btn = form.querySelector('button[type="submit"]');
+      if (btn) btn.disabled = true;
+      fetch(form.action.replace('formsubmit.co/', 'formsubmit.co/ajax/'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          email: form.email.value,
+          message: form.message.value,
+          _subject: 'New message from your portfolio',
+          _template: 'table',
+          _captcha: 'false'
+        })
+      })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!d || (d.success !== true && d.success !== 'true')) throw new Error('x');
+        form.reset();
+        if (out) out.textContent = 'Thanks — your message just landed in my inbox.';
+        if (btn) btn.disabled = false;
+      })
+      .catch(function () {
+        /* background send blocked (local file) → real form POST, still delivers */
+        if (out) out.textContent = 'Sending…';
+        form.submit();
+      });
+    });
+  }
 
   if (reduced.matches) return;
 
