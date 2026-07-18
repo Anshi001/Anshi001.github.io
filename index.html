@@ -123,6 +123,12 @@ section{padding:var(--gap) 0; scroll-margin-top:4rem}
 
 /* ══════ HERO ══════ */
 .hero{min-height:min(96vh,56rem); display:flex; flex-direction:column; justify-content:center; padding-top:7rem; padding-bottom:3rem}
+.avatar{position:relative; width:4.5rem; height:4.5rem; border-radius:50%; margin-bottom:1.75rem; flex:0 0 auto}
+.avatar::before{content:""; position:absolute; inset:-2px; border-radius:50%; background:conic-gradient(from 210deg,var(--cyan),var(--accent),var(--violet),var(--cyan)); z-index:0}
+.avatar .inner{position:absolute; inset:2px; border-radius:50%; overflow:hidden; z-index:1; background:var(--raise-2); display:flex; align-items:center; justify-content:center}
+.avatar .inner img{width:100%; height:100%; object-fit:cover; display:block}
+.avatar .mono-initials{font-family:var(--mono); font-size:1.35rem; font-weight:600; letter-spacing:-.02em; color:var(--ink)}
+.avatar .ring-dot{position:absolute; right:1px; bottom:1px; width:1rem; height:1rem; border-radius:50%; background:var(--cyan); border:3px solid var(--ground); z-index:2}
 .status{display:inline-flex; align-items:center; gap:.55rem; align-self:flex-start; font-family:var(--mono); font-size:.68rem; letter-spacing:.06em; color:var(--ink-mute); background:rgba(16,19,25,.6); border:1px solid var(--line-2); padding:.45rem .85rem; border-radius:100px; margin-bottom:2rem}
 .status b{color:var(--ink); font-weight:500}
 .pulse{position:relative; width:6px; height:6px; border-radius:50%; background:var(--cyan); flex:0 0 auto}
@@ -287,27 +293,35 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-of
 
   <!-- ═══ HERO ═══ -->
   <header class="hero">
-    <span class="status" data-h="0">
+    <div class="avatar" data-h="0" aria-hidden="true">
+      <span class="inner">
+        <!-- TODO Anshika: drop a square headshot in this folder as avatar.jpg, then
+             replace the line below with: <img src="avatar.jpg" alt="Anshika Singh"> -->
+        <span class="mono-initials">AS</span>
+      </span>
+      <span class="ring-dot" title="Available"></span>
+    </div>
+    <span class="status" data-h="1">
       <span class="pulse"></span> Currently <b>Full-Stack&nbsp;&amp;&nbsp;AI Engineer</b> at VakilDesk · Delhi
     </span>
     <h1>
-      <span class="line" data-h="1"><span>I build the whole stack —</span></span>
-      <span class="line" data-h="2"><span>front end, back end,</span></span>
-      <span class="line" data-h="3"><span>and <em class="grad">the model in between.</em></span></span>
+      <span class="line" data-h="2"><span>I build the whole stack —</span></span>
+      <span class="line" data-h="3"><span>front end, back end,</span></span>
+      <span class="line" data-h="4"><span>and <em class="grad">the model in between.</em></span></span>
     </h1>
-    <p class="hero-sub" data-h="4">
+    <p class="hero-sub" data-h="5">
       Final-year Computer Science engineer in Delhi, now full-time at
       <strong>VakilDesk</strong> after a seven-month internship — building a
       production legal-tech SaaS on Spring Boot, PostgreSQL, React and Python.
       Previously shipped ML pipelines at <strong>Samsung R&amp;D</strong>.
       Full-stack, with the AI layer too.
     </p>
-    <div class="cta-row" data-h="5">
+    <div class="cta-row" data-h="6">
       <a class="btn primary" href="#work">See the work <span class="arw">→</span></a>
       <a class="btn" href="#contact">Get in touch</a>
     </div>
 
-    <div class="stats" data-h="6">
+    <div class="stats" data-h="7">
       <div class="stat"><span class="n">5</span><span class="l">Roles · intern → full-time</span></div>
       <div class="stat"><span class="n">2</span><span class="l">Production platforms shipped</span></div>
       <div class="stat"><span class="n">8.2<i>/10</i></span><span class="l">CGPA · B.Tech CSE</span></div>
@@ -356,68 +370,15 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-of
   <section id="work">
     <div class="sec-head r">
       <div class="sec-top"><span class="num">02 / WORK</span><span class="rule"></span></div>
-      <h2>Things I built.</h2>
-      <p class="lede">Production systems I've shipped with teams, and personal projects where I chased a harder constraint. Each one has a real problem at its centre.</p>
+      <h2>Personal projects.</h2>
+      <p class="lede">Things I've built on my own time — each one around a constraint that made the obvious solution impossible.</p>
     </div>
 
     <div class="work-list">
 
-      <div class="work-label">Production · built with teams</div>
-
       <article class="proj spot r">
         <div>
-          <div class="proj-top"><span class="idx">01</span><span class="tag flag">VakilDesk</span><span class="tag sig">AI · full-stack</span></div>
-          <h3>Navio — Enterprise e-Case Management</h3>
-          <p class="desc">
-            A legal case-management platform for the <em>Kerala State Electricity Board</em>,
-            which tracks 50,000+ active legal matters across every forum from
-            consumer courts to the Supreme Court. Built with the team at VakilDesk:
-            a Kotlin / Spring Boot backend over a JSONB-rich PostgreSQL schema, a
-            React web client, and a React Native mobile app.
-            <em>My work centred on backend services, workflow automation, and the
-            document-intelligence layer</em> — an AI suite (Google GenAI) that OCRs
-            and drafts legal documents — plus performance and reliability across the platform.
-          </p>
-          <div class="stack">
-            <span class="chip">Kotlin</span><span class="chip">Spring Boot</span>
-            <span class="chip">PostgreSQL</span><span class="chip">React</span>
-            <span class="chip">TypeScript</span><span class="chip">React Native</span>
-            <span class="chip">Google GenAI</span><span class="chip">Python</span>
-          </div>
-        </div>
-        <!-- TODO Anshika: screenshot a Navio dashboard from your report PDF → shots/navio.png, then use <img src="shots/navio.png" alt="Navio matter dashboard"> -->
-        <div class="shot"><span class="ph">Screenshot<br>navio dashboard</span></div>
-      </article>
-
-      <article class="proj spot r">
-        <div>
-          <div class="proj-top"><span class="idx">02</span><span class="tag flag">Samsung</span><span class="tag sig">Machine learning</span></div>
-          <h3>AethraFlow — Supply-Chain Intelligence</h3>
-          <p class="desc">
-            An intelligent supply-chain optimisation platform built with the team
-            during my Samsung internship. A React front end over Node.js and Python
-            microservices, with PostgreSQL, MongoDB, and Kafka moving data in real time.
-            <em>I worked on the data and ML pipelines for demand forecasting</em> —
-            ensemble models (ARIMA, Prophet, LSTM, XGBoost) predicting demand to cut
-            both stockouts and overstock — plus exposure to inventory and route optimisation.
-          </p>
-          <div class="stack">
-            <span class="chip">Python</span><span class="chip">Node.js</span>
-            <span class="chip">React</span><span class="chip">PostgreSQL</span>
-            <span class="chip">MongoDB</span><span class="chip">Kafka</span>
-            <span class="chip">TensorFlow</span><span class="chip">AWS</span>
-            <span class="chip">Kubernetes</span>
-          </div>
-        </div>
-        <!-- TODO Anshika: screenshot an AethraFlow chart from your report PDF → shots/aethraflow.png -->
-        <div class="shot"><span class="ph">Screenshot<br>aethraflow</span></div>
-      </article>
-
-      <div class="work-label">Personal projects</div>
-
-      <article class="proj spot r">
-        <div>
-          <div class="proj-top"><span class="idx">03</span><span class="tag sig">Offline-first</span></div>
+          <div class="proj-top"><span class="idx">01</span><span class="tag sig">Offline-first</span></div>
           <h3>MonkBuddy</h3>
           <p class="desc">
             A heritage guide for Sikkim's monasteries — 360° virtual tours,
@@ -441,7 +402,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-of
 
       <article class="proj spot r">
         <div>
-          <div class="proj-top"><span class="idx">04</span><span class="tag sig">On-device ML</span></div>
+          <div class="proj-top"><span class="idx">02</span><span class="tag sig">On-device ML</span></div>
           <h3>HintCatcher</h3>
           <p class="desc">
             Real-time sign language detection on Android. Camera in,
@@ -461,7 +422,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-of
 
       <article class="proj spot r">
         <div>
-          <div class="proj-top"><span class="idx">05</span></div>
+          <div class="proj-top"><span class="idx">03</span></div>
           <h3>Talkie</h3>
           <p class="desc">
             A real-time messenger — live chat, delivery states, notifications.
@@ -501,9 +462,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-of
           <div class="xp-org">VakilDesk · Backend Engineering</div>
           <div class="xp-body">
             <ul>
-              <li>Joined as an intern and converted to a full-time role — building backend services and features for a production legal-tech SaaS (Navio).</li>
-              <li>Work across the stack — Spring Boot and PostgreSQL on the backend, React on the front end, Python for integrations.</li>
-              <li>Focused on workflow automation, document intelligence (AI document OCR &amp; drafting), and system performance, reliability and scalability.</li>
+              <li>Joined as an intern and converted to full-time. I work on <strong>Navio</strong> — a production legal-tech SaaS that automates the full lifecycle of legal case management, with a web and mobile client on a Kotlin/Spring Boot backend.</li>
+              <li>Across the stack: Spring Boot and PostgreSQL on the backend, React on the front end, React Native on mobile, Python for integrations.</li>
+              <li>Focused on workflow automation, document intelligence (AI-powered OCR &amp; drafting), and system performance, reliability and scalability.</li>
             </ul>
           </div>
         </div>
@@ -530,9 +491,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-of
           <div class="xp-org">Samsung India Electronics</div>
           <div class="xp-body">
             <ul>
-              <li>Contributed within the team to an AI-driven supply-chain optimisation platform on a cloud-native microservices architecture (AWS, Kubernetes).</li>
-              <li>Worked on data and ML pipelines for predictive demand forecasting — PostgreSQL, MongoDB, Kafka.</li>
-              <li>Exposure to inventory and transportation optimisation: multi-echelon stock planning, dynamic reorder points, and vehicle routing under real-time constraints.</li>
+              <li>Contributed within the team to <strong>AethraFlow</strong> — an AI-driven supply-chain optimisation platform on a cloud-native microservices architecture (AWS, Kubernetes).</li>
+              <li>Built data and ML pipelines for predictive demand forecasting — ensemble models (ARIMA, Prophet, LSTM, XGBoost) over PostgreSQL, MongoDB and Kafka.</li>
+              <li>Exposure to inventory and transportation optimisation: multi-echelon stock planning, dynamic reorder points, and routing under real-time constraints.</li>
             </ul>
           </div>
         </div>
