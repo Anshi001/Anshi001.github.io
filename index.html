@@ -241,11 +241,13 @@ h1 .line > span{display:block}
 .aside .label{font-family:var(--mono); font-size:.63rem; text-transform:uppercase; letter-spacing:.12em; color:var(--ink-faint); margin-bottom:.5rem}
 .mailto{font-family:var(--mono); font-size:clamp(.85rem,2.4vw,1rem); color:var(--ink); text-decoration:none; border-bottom:1px solid var(--accent-lo); padding-bottom:.15rem; transition:color var(--t-quick) var(--e), border-color var(--t-quick) var(--e); word-break:break-all}
 .mailto:hover{color:var(--accent); border-bottom-color:var(--accent)}
-.social{display:flex; flex-direction:column; gap:.6rem}
-.social a{display:inline-flex; align-items:center; gap:.6rem; font-family:var(--mono); font-size:.8rem; color:var(--ink-mute); text-decoration:none; transition:color var(--t-quick) var(--e)}
-.social a:hover,.social a:focus-visible{color:var(--ink)}
+.social{display:flex; flex-direction:column; gap:.4rem}
+.social a{display:flex; align-items:center; gap:.6rem; font-family:var(--mono); font-size:.8rem; color:var(--ink-mute); text-decoration:none; padding:.6rem .8rem; margin:0 -.8rem; border-radius:9px; border:1px solid transparent; transition:color var(--t-quick) var(--e), background-color var(--t-quick) var(--e), border-color var(--t-quick) var(--e)}
+.social a:hover,.social a:focus-visible{color:var(--ink); background:rgba(110,123,242,.08); border-color:var(--line-2)}
 .social a .dot-i{width:6px; height:6px; border-radius:50%; background:var(--accent-lo); flex:0 0 auto; transition:background-color var(--t-quick) var(--e)}
 .social a:hover .dot-i{background:var(--accent)}
+.social a .go{margin-left:auto; color:var(--ink-faint); transition:color var(--t-quick) var(--e), transform var(--t-quick) var(--e)}
+.social a:hover .go{color:var(--accent); transform:translate(2px,-2px)}
 .links{display:flex; gap:.75rem; flex-wrap:wrap; margin-top:.5rem}
 
 footer{border-top:1px solid var(--line); padding:2rem 0 3rem; display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-family:var(--mono); font-size:.66rem; color:var(--ink-faint)}
@@ -634,17 +636,15 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-of
         <div>
           <div class="label">Find me</div>
           <div class="social">
-            <a href="https://github.com/Anshi001" target="_blank" rel="noopener noreferrer"><span class="dot-i"></span>github.com/Anshi001</a>
-            <a href="https://www.linkedin.com/in/anshika-singh01" target="_blank" rel="noopener noreferrer"><span class="dot-i"></span>linkedin.com/in/anshika-singh01</a>
+            <a href="https://github.com/Anshi001" target="_blank" rel="noopener noreferrer"><span class="dot-i"></span>github.com/Anshi001<span class="go">↗</span></a>
+            <a href="https://www.linkedin.com/in/anshika-singh01" target="_blank" rel="noopener noreferrer"><span class="dot-i"></span>linkedin.com/in/anshika-singh01<span class="go">↗</span></a>
           </div>
         </div>
         <div>
-          <div class="label">Elsewhere</div>
+          <div class="label">Résumé</div>
           <div class="links">
-            <a class="btn" href="https://github.com/Anshi001" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a class="btn" href="https://www.linkedin.com/in/anshika-singh01" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             <!-- TODO Anshika: drop your PDF in this folder as Anshika_Singh_Resume.pdf -->
-            <a class="btn" href="Anshika_Singh_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+            <a class="btn" href="Anshika_Singh_Resume.pdf" target="_blank" rel="noopener">Download résumé <span class="arw">→</span></a>
           </div>
         </div>
       </aside>
@@ -678,6 +678,14 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-of
      Works with zero backend. See note in the chat for a real-inbox upgrade. */
   var form = document.getElementById('contact-form');
   var out = document.getElementById('form-msg');
+  var INBOX = 'anshika91190@gmail.com';
+
+  function mailtoFallback(name, email, msg){
+    var subject = encodeURIComponent('Portfolio enquiry from ' + name);
+    var body = encodeURIComponent(msg + '\n\n— ' + name + ' (' + email + ')');
+    window.location.href = 'mailto:' + INBOX + '?subject=' + subject + '&body=' + body;
+  }
+
   if (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -685,18 +693,44 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-of
       var email = document.getElementById('cf-email').value.trim();
       var msg = document.getElementById('cf-msg').value.trim();
       if (!name || !email || !msg) {
-        out.textContent = 'Please fill in your name, email, and a message.';
         out.style.color = '#E8A34C';
+        out.textContent = 'Please fill in your name, email, and a message.';
         return;
       }
-      var subject = encodeURIComponent('Portfolio enquiry from ' + name);
-      var body = encodeURIComponent(msg + '\n\n— ' + name + ' (' + email + ')');
+      var btn = form.querySelector('button[type="submit"]');
+      if (btn) btn.disabled = true;
       out.style.color = '';
-      out.textContent = 'Opening your email app…';
-      window.location.href = 'mailto:anshika91190@gmail.com?subject=' + subject + '&body=' + body;
-      setTimeout(function () {
-        out.textContent = "If nothing opened, email me directly at anshika91190@gmail.com";
-      }, 1200);
+      out.textContent = 'Sending…';
+
+      /* FormSubmit.co delivers straight to the inbox — no backend, no API key.
+         First submission triggers a one-time confirmation email to activate.
+         If the request is blocked (e.g. the offline preview), fall back to the
+         visitor's mail app so the message is never lost. */
+      fetch('https://formsubmit.co/ajax/' + INBOX, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          message: msg,
+          _subject: 'Portfolio enquiry from ' + name,
+          _template: 'table',
+          _captcha: 'false'
+        })
+      })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data && (data.success === true || data.success === 'true')) {
+          form.reset();
+          out.style.color = '';
+          out.textContent = 'Thanks, ' + name + " — your message is on its way to my inbox.";
+        } else { throw new Error('formsubmit'); }
+      })
+      .catch(function () {
+        out.textContent = 'Opening your email app instead…';
+        mailtoFallback(name, email, msg);
+      })
+      .then(function () { if (btn) btn.disabled = false; });
     });
   }
 
